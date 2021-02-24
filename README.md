@@ -8,5 +8,5 @@
 4） Jupyter Notebook： （安装教程和使用方法：http://dblab.xmu.edu.cn/blog/2575-2/）
 
 ### 案例
-1） yelp: 基于YELP数据集的商业数据分析
+1） yelp: 基于YELP数据集的商业数据分析  
 2） us_counties: 2020年美国新冠肺炎疫情数据分析
