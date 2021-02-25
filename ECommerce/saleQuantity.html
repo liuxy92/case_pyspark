@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+  </style>
+</head>
+
+
+<body>
+<div id="chart" style="width:95%;height:95%;"></div>
+<script src="static/jquery-3.2.1.min.js"></script>
+<script src="static/echarts-4.7.0.min.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('chart'));
+    myChart.setOption(
+    {
+        color: ['#C23531'],
+        tooltip: {
+            trigger: 'axis',
+            formatter: '{b} : {c}'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            name: '日期',
+            type: 'category',
+            data: [],
+        },
+        yAxis: {
+            name: '销量',
+            type: 'value'
+        },
+        series: [{
+            data: [],
+            type: 'line'
+        }]
+    });
+
+    myChart.showLoading();
+
+    $.getJSON("/static/saleQuantity.json", data => {
+        var names=[];
+        var nums=[];
+
+        data = data.map(v => ({
+            date: v[0],
+            quantity: parseInt(v[1]),
+        }))
+
+        for(var i=0;i<data.length;i++){
+            names.push(data[i].date);
+            nums.push(data[i].quantity);
+        }
+
+        myChart.setOption({
+            xAxis: {
+                data: names
+            },
+            series: [{
+                data: nums
+            }]
+        });
+        myChart.hideLoading();
+    })
+</script>
+</body>
+</html>

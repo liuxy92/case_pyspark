@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height">
+    <title>E-Commerce-Data 在线零售业务数据分析</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .container {
+            width: 65%;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: rgba(0, 0, 0, 0.75);
+        }
+
+        h3>small {
+            color: rgba(0, 0, 0, 0.45);
+        }
+
+        .chart-group {
+            width: 100%;
+            height: 610px;
+            position: relative;
+        }
+
+        .frame {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="font-size: 40px;">E-Commerce-Data 在线零售业务数据分析<br>
+            <small style="font-size: 55%;color: rgba(0,0,0,0.65);">数据集来自一家英国公司的在线零售业务的交易数据</small>
+        </h1>
+        <hr>
+        <h1 style="font-size: 30px;color: #404040;">I. 概览</h1>
+
+
+        <div class="chart-group">
+            <h3>(1) 客户数最多的10个国家
+            <br>
+            <small style="font-size: 72%;">
+                ——英国的客户最多，达到3950个，数量远大于其他国家；其次是德国、法国、西班牙等
+            </small>
+            </h3>
+            <iframe src="countryCustomer.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+        <div class="chart-group">
+            <h3>(2) 销量最高的10个国家
+            <br>
+            <small style="font-size: 72%;">
+                ——英国的销量最高，达到4008533件，数量远大于其他国家；其次是新西兰、爱尔兰、德国等
+            </small>
+            </h3>
+            <iframe src="countryQuantity.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+        <div class="chart-group">
+            <h3>(3) 各个国家的总销售额分布情况
+            <br>
+            <small style="font-size: 72%;">
+                ——英国的总销售额最高，达到6767873.394英镑，占比81.54%
+            </small>
+            </h3>
+            <iframe src="countrySumOfPrice.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+        <div class="chart-group">
+            <h3>(4) 销量最高的10个商品
+            <br>
+            <small style="font-size: 72%;">
+                ——编号为84077的商品销量最高，达到53215件；销量Top3的商品在数量上差距并不大
+            </small>
+            </h3>
+            <iframe src="stockQuantity.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+        <div class="chart-group">
+            <h3>(5) 商品描述的热门关键词Top300
+            <br>
+            <small style="font-size: 72%;">
+                ——热门关键词包括bag、red、heart、pink、christmas、cake等
+            </small>
+            </h3>
+            <iframe src="wordCount.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+        <div class="chart-group">
+            <h3>(6) 退货订单数最多的10个国家
+            <br>
+            <small style="font-size: 72%;">
+                ——英国的退货订单数最多，达到3208个，数量远大于其他国家；其次是德国、法国、爱尔兰等
+            </small>
+            </h3>
+            <iframe src="countryReturnInvoice.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+
+        <h1 style="font-size: 30px;color: #404040;">II. 关系</h1>
+
+        <div class="chart-group">
+            <h3>(7) 月销售额随时间的变化趋势
+            <br>
+            <small style="font-size: 72%;">
+                ——销售额较高的月份主要集中在下半年；由于该公司主要售卖礼品，并且下半年的节日较多，所以销售额比上半年高；2011年12月的销售额较低是因为数据只统计到2011/12/9 
+            </small>
+            </h3>
+            <iframe src="tradePrice.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+        <div class="chart-group">
+            <h3>(8) 日销量随时间的变化趋势
+            <br>
+            <small style="font-size: 72%;">
+                ——下半年的日销量整体上高于上半年；2011年的10月5号达到日销量的最高纪录45741件
+            </small>
+            </h3>
+            <iframe src="saleQuantity.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+        <div class="chart-group">
+            <h3>(9) 各国的购买订单量和退货订单量的关系
+            <br>
+            <small style="font-size: 72%;">
+                ——购买订单量越大的国家，退货订单量往往也越大
+            </small>
+            </h3>
+            <iframe src="buyReturn.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+        <div class="chart-group">
+            <h3>(10) 商品的平均单价与销量的关系
+            <br>
+            <small style="font-size: 72%;">
+                ——总体上看，商品的销量随着平均单价的升高而下降
+            </small>
+            </h3>
+            <iframe src="unitPriceSales.html" class="frame" frameborder="0"></iframe>
+        </div>
+        <br><br><br>
+
+    </div>
+    <script>document.body.clientHeight;</script>
+</body>
+</html>

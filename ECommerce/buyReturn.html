@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+  </style>
+</head>
+
+
+<body>
+<div id="chart" style="width:95%;height:95%;"></div>
+<script src="static/jquery-3.2.1.min.js"></script>
+<script src="static/echarts-4.7.0.min.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('chart'));
+    myChart.setOption(
+    {
+        color: ['#3398DB'],
+        tooltip: {
+            trigger: 'item',
+            formatter: function (params) {
+                if(params.value.length==3)
+                    return "国家：" + params.value[2] +
+                    "<br />购买订单量：" + params.value[0] + '<br />退货订单量：'
+                       + params.value[1];
+                else//当数据太大时，鼠标划过时反解析回原来的数据
+                    return "国家：" + params.value[2] +
+                    "<br />购买订单量：" + params.value[3] + '<br />退货订单量：'
+                       + params.value[4];
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            name: '购买',
+            splitLine:{show: false},
+            max: 500
+        },
+        yAxis: {
+            name: '退货',
+            splitLine:{show: false},
+            max: 150
+        },
+        series: [{
+            symbolSize: 10,
+            data: [],
+            type: 'scatter'
+        }]
+    });
+
+    myChart.showLoading();
+
+    $.getJSON("/static/buyReturn.json", data => {
+        var names=[];
+
+        data = data.map(v => ({
+            country: v[0],
+            buyNum: parseInt(v[1]),
+            returnNum: parseInt(v[2]),
+        }))
+
+        for(var i=0;i<data.length;i++){
+            if(data[i].buyNum>500 && data[i].returnNum>150)//数据太大的话，散点图上看不出关系，故限定x,y值
+                names.push([500,150,data[i].country,data[i].buyNum,data[i].returnNum]);
+            else
+                names.push([data[i].buyNum,data[i].returnNum,data[i].country]);
+        }
+        
+        myChart.setOption({
+            series: [{
+                data: names
+            }]
+        });
+        myChart.hideLoading();
+    })
+</script>
+</body>
+</html>

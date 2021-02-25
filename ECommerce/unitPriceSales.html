@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+  </style>
+</head>
+
+
+<body>
+<div id="chart" style="width:95%;height:95%;"></div>
+<script src="static/jquery-3.2.1.min.js"></script>
+<script src="static/echarts-4.7.0.min.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('chart'));
+    myChart.setOption(
+    {
+        tooltip: {
+            trigger: 'item',
+            formatter: function (params) {
+                return "商品ID：" + params.value[2] +
+                "<br />平均单价：" + params.value[0] + '<br />销量：'
+                   + params.value[1];
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            name: '单价',
+            splitLine:{show: false},
+            min: 0,
+            max: 50
+        },
+        yAxis: {
+            name: '销量',
+            splitLine:{show: false},
+            min: 0
+        },
+        series: [{
+            symbolSize: 10,
+            data: [],
+            type: 'scatter'
+        }]
+    });
+
+    myChart.showLoading();
+
+    $.getJSON("/static/unitPriceSales.json", data => {
+        var names=[];
+
+        data = data.map(v => ({
+            stock: v[0],
+            avgUnitPrice: parseFloat(v[1]),
+            sales: parseInt(v[2]),
+        }))
+
+        for(var i=0;i<data.length;i++){
+            names.push([data[i].avgUnitPrice,data[i].sales,data[i].stock]);
+        }
+        
+        myChart.setOption({
+            series: [{
+                data: names
+            }]
+        });
+        myChart.hideLoading();
+    })
+</script>
+</body>
+</html>

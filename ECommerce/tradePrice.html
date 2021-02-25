@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+  </style>
+</head>
+
+
+<body>
+<div id="chart" style="width:95%;height:95%;"></div>
+<script src="static/jquery-3.2.1.min.js"></script>
+<script src="static/echarts-4.7.0.min.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('chart'));
+    myChart.setOption(
+    {
+        color: ['#3398DB','#000000'],
+        tooltip: {
+            trigger: 'axis',
+            formatter: '{a} <br/>{b} : {c}'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                name: '日期',
+                type: 'category',
+                boundaryGap: true,
+                data: []
+            },
+            {
+                type: 'category',
+                boundaryGap: true,
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                scale: true,
+                name: '交易额/英镑',
+            },
+            {}
+        ],
+        series: [
+            {
+                name: '交易额',
+                type: 'bar',
+                data: []
+            },
+            {
+                type: 'line',
+                data: []
+            }
+        ]
+    });
+
+    myChart.showLoading();
+
+    $.getJSON("/static/tradePrice.json", data => {
+        var names=[];
+        var nums=[];
+
+        data = data.map(v => ({
+            country: v[0],
+            tradePrice: parseFloat(v[1]),
+        }))
+
+        for(var i=0;i<data.length;i++){
+            names.push(data[i].country);
+            nums.push(data[i].tradePrice);
+        }
+
+        myChart.setOption({
+            xAxis: {
+                data: names
+            },
+            series: [{
+                data: nums
+            },{
+                data: nums
+            }]
+        });
+        myChart.hideLoading();
+    })
+</script>
+</body>
+</html>

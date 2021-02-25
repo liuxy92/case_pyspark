@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+  </style>
+</head>
+
+
+<body>
+<div id="chart" style="width:95%;height:95%;"></div>
+<script src="static/jquery-3.2.1.min.js"></script>
+<script src="static/echarts-4.7.0.min.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('chart'));
+    myChart.setOption(
+    {
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'right',
+            data: []
+        },
+        series: [
+            {
+                name: '销售额',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [],
+                label: {
+                    normal: {
+                        position: 'inner',
+                        show : false
+                    }
+                },
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    });
+
+    myChart.showLoading();
+
+    $.getJSON("/static/countrySumOfPrice.json", data => {
+        var names=[];
+        var nums=[];
+
+        data = data.map(v => ({
+            country: v[0],
+            SumOfPrice: parseFloat(v[1]),
+        }))
+
+        for(var i=0;i<data.length;i++){
+            names.push(data[i].country);
+            nums.push({
+                value:data[i].SumOfPrice,
+                name:data[i].country
+            });
+        }
+        
+        myChart.setOption({
+            legend: {
+                data: names
+            },
+            series: [{
+                data: nums
+            }]
+        });
+        myChart.hideLoading();
+    })
+</script>
+</body>
+</html>
