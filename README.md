@@ -11,4 +11,5 @@
 1） yelp: 基于YELP数据集的商业数据分析  
 2） us_counties: 2020年美国新冠肺炎疫情数据分析  
 3） ECommerce: 基于零售交易数据的Spark数据处理与分析  
-4)  earthquake: 基于地震数据的Spark数据处理与分析  
+4） earthquake: 基于地震数据的Spark数据处理与分析  
+5） global： 基于Spark的地震数据处理与分析  
