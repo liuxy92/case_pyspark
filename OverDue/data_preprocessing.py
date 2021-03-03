@@ -9,7 +9,6 @@ df.duplicated()
 df.drop_duplicates()
 
 # 查看各字段缺失率
-print(dir(df))
 # df.info()
 # 缺失指按均值填充
 for col in list(df.columns[df.isnull().sum() > 0]):
@@ -21,4 +20,4 @@ columns = ["RevolvingUtilizationOfUnsecuredLines","DebtRatio","NumberOfOpenCredi
 df.drop(columns,axis=1,inplace=True)
 
 # 保存至本地
-# df.to_csv("./data/data.csv")
+df.to_csv("./data/data.csv")
