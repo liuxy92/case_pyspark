@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height">
+  <title>TOP 5000 电影数据分析</title>
+  <!-- <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed&display=swap" rel="stylesheet"> -->
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html,
+    body {
+      font-family: 'Ubuntu Condensed';
+      height: 100%;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.85);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mountNode"></div>
+  </div>
+  <script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
+  <script src="static/g2.min.js"></script>
+  <script src="static/data-set.min.js"></script>
+  <script src="static/jquery-3.2.1.min.js"></script>
+  <script>
+    function generateChart(id, type, xkey, xlabel, ykey, ylabel) {
+      var chart = new G2.Chart({
+        container: id,
+        forceFit: true,
+        height: 500,
+        padding: [40, 80, 80, 80],
+      });
+      chart.scale(ykey, {
+        alias: ylabel,
+        min: 0,
+        // max: 3000,
+        tickCount: 4
+      });
+
+      chart.scale(xkey, {
+        formatter(v) {
+          return `${v/1e6}`
+        },
+        alias: xlabel,
+        type: 'cat'
+      });
+
+      chart.axis(xkey, {
+        title: true,
+        label: {
+          textStyle: {
+            fill: '#aaaaaa'
+          }
+        },
+        tickLine: {
+          alignWithLabel: false,
+          length: 0
+        }
+      });
+
+      chart.axis(ykey, {
+        label: {
+          textStyle: {
+            fill: '#aaaaaa'
+          }
+        },
+        title: {
+          offset: 50
+        }
+      });
+      chart.legend({
+        position: 'top-center'
+      });
+      chart.interval().position(`${xkey}*${ykey}`).label(ykey).color('#54d6d1').opacity(1).adjust([{
+        type,
+        marginRatio: 1 / 32
+      }]);
+      chart.render();
+
+      return chart;
+    }
+  </script>
+  <script>
+
+    let chart = generateChart('mountNode', 'dodge', 'budget', 'budgets (million dollars)', 'count', 'movies');
+
+    window.onload = () => {
+      $.getJSON("/static/budget.json", d => {
+        chart.changeData(d)
+      })
+    }
+  </script>
+</body>
+
+</html>

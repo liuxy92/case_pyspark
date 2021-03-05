@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height">
+  <title>TMDb 电影数据分析</title>
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    @font-face {
+      font-family: "Ubuntu Condensed";
+      src: url("static/UbuntuCondensed-Regular.ttf");
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      font-family: 'Ubuntu Condensed';
+      height: 100%;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.85);
+      background-color: rgb(252, 246, 229);
+    }
+
+    .container {
+      width: 65%;
+      margin: 0 auto;
+    }
+
+    h2 {
+      color: rgba(0, 0, 0, 0.75);
+    }
+
+    h2>small {
+      color: rgba(0, 0, 0, 0.45);
+    }
+
+    .chart-group {
+      width: 100%;
+      height: 610px;
+      position: relative;
+    }
+
+    .keywords {
+      margin-top: -70px;
+      padding: 96px;
+    }
+
+    .frame {
+      width: 100%;
+      height: 600px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 style="font-size: 40px;"># TMDb Movie Data Analysis <br> <small style="font-size: 55%;color: rgba(0,0,0,0.65);">>
+        Big Data Processing Technology on Spark</small> </h1>
+    <hr>
+    <h1 style="font-size: 30px;color: #404040;">I. Overviews</h1>
+    <div class="chart-group">
+      <h2>- Distribution of Genres in TMDb <br> <small style="font-size: 72%;">> This figure
+          compares the genre
+          distribution in TMDb, and you can see that most of the movies in TMDb is Drama.</small> </h2>
+      <iframe src="genres.html" class="frame" frameborder="0"></iframe>
+    </div>
+    <br>
+    <div class="chart-group">
+      <h2>- Keywords Distribution for TMDb (Only Top 100 Keywords Shown) <br> <small style="font-size: 72%;">> This
+          figure shows the keywords word-cloud for TMDb movies, The most frequent keywords are "Woman Director".</small>
+      </h2>
+      <iframe src="keywords.html" class="keywords frame" frameborder="0"></iframe>
+    </div>
+    <br>
+    <div class="chart-group">
+      <h2>- Top 10 Most Common Budgets <br> <small style="font-size: 72%;">> This figure
+          shows the budgets
+          distribution for movies in TMDb (only TOP 10), most of the films have about 20,000,000 dollars' budgets.</small> </h2>
+      <iframe src="budget.html" class="frame" frameborder="0"></iframe>
+    </div>
+    <br>
+    <div class="chart-group">
+      <h2>- Run Time Distribution for TMDb (Only shows [count >= 100] results) <br> <small style="font-size: 72%;">> This
+          figure shows the run time
+          distribution for the TMDb movies, most of the films play 90 minutes.</small> </h2>
+      <iframe src="runtime.html" class="frame" frameborder="0"></iframe>
+    </div>
+    <br>
+    <div class="chart-group">
+      <h2>- TOP 10 Companies that Produces the Most Movies <br> <small style="font-size: 72%;">> This
+          figure shows top 10 companies that produces the most movies in TMDb, most of the films were produced by Warner Bros..</small> </h2>
+      <iframe src="company_count.html" class="frame" frameborder="0"></iframe>
+    </div>
+    <br>
+    <div class="chart-group">
+      <h2>- TOP 10 Spoken Languages in TMDb <br> <small style="font-size: 72%;">> This
+          figure shows the languages spoken in TMDb movies, The most frequent spoken language is English.</small>
+      </h2>
+      <iframe src="lang.html" class="keywords frame" frameborder="0"></iframe>
+    </div>
+
+    <h1 style="font-size: 30px;">II. Relationship</h1>
+    <div class="chart-group">
+      <h2>- Budget and Rating Relationship <br> <small style="font-size: 72%;">> This figure shows the
+          relationship between budget and rating (already filtered out movies with too little evaluation and no budget
+          information), The Shawshank Redemption has the highest score, but the budget is not high in the TMDb.</small>
+      </h2>
+      <iframe src="budget_vote.html" class="frame" frameborder="0"></iframe>
+    </div>
+    <br>
+    <div class="chart-group">
+      <h2>- Release Date and Rating Relationship <br> <small style="font-size: 72%;">> This figure
+          shows the relationship between release date and rating (already filtered out movies with too little
+          evaluation and no release date information). Early film ratings were higher.</small>
+      </h2>
+      <iframe src="date_vote.html" class="frame" frameborder="0"></iframe>
+    </div>
+    <br>
+    <div class="chart-group">
+      <h2>- Popularity and Rating Relationship <br> <small style="font-size: 72%;">> This figure
+          shows the relationship between popularity and rating (already filtered out movies with too little
+          evaluation and no popularity information). Even though "Minions" only scores 6.4, but it's the most popular movies.</small>
+      </h2>
+      <iframe src="pop_vote.html" class="frame" frameborder="0"></iframe>
+    </div>
+    <br>
+    <div class="chart-group">
+      <h2>- Companies' Productions vs. Qualities <br> <small style="font-size: 72%">> This figure
+          shows the relationship between companies' movie counts and rating in TMDb (already filtered out movies with too little
+          evaluation and no popularity information). The companies that produced most movies usually got average scores.</small>
+      </h2>
+      <iframe src="movies_vote.html" class="frame" frameborder="0"></iframe>
+    </div>
+    <br>
+    <div class="chart-group">
+      <h2>- Budgets and Revenues Relationship <br> <small style="font-size: 72%">> This figure
+          shows the relationship between budgets and revenues for TMDb movies (already filtered out movies with too little
+          evaluation and no budget and revenue information). Avatar has the most profit.</small>
+      </h2>
+      <iframe src="budget_revenue.html" class="frame" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  <script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
+</body>
+
+</html>

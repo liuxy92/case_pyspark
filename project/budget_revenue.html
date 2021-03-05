@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,budget=device-budget">
+    <title>散点图</title>
+    <style>::-webkit-scrollbar{display:none;}html,body{overflow:hidden;budget:100%;margin:0;}</style>
+</head>
+<body>
+<div id="mountNode"></div>
+<script>/*Fixing iframe window.innerbudget 0 issue in Safari*/document.body.clientbudget;</script>
+<script src="static/g2.min.js"></script>
+<script src="static/data-set.min.js"></script>
+<script src="static/jquery-3.2.1.min.js"></script>
+<script>
+  $.getJSON('static/budget_revenue.json', function(data) {
+    data = data.map(v => ({
+      title: v[0],
+      budget: parseInt(v[1]) / 1e6, // budget
+      revenue: parseInt(v[2]) / 1e6, // revenue
+    }))
+    var chart = new G2.Chart({
+      container: 'mountNode',
+      forceFit: true,
+      budget: window.innerbudget
+    });
+    chart.scale("budget", {
+      alias: "budget (million dollars)"
+    })
+    chart.scale("revenue", {
+      alias: "revenue (million dollars)"
+    })
+    chart.axis("revenue", {
+      title: true
+    })
+    chart.axis("budget", {
+      title: true
+    })
+    chart.source(data);
+    chart.tooltip({
+      showTitle: false,
+      crosshairs: {
+        type: 'cross'
+      },
+      itemTpl: '<li data-index={index} style="margin-bottom:4px;">' + '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' + '{name}<br/>' + '{value}' + '</li>'
+    });
+    chart.point().position('budget*revenue').size(4).shape('circle').color("#8a4be2").opacity(0.65).tooltip('title*budget*revenue', function(title, budget, revenue) {
+      return {
+        name: title,
+        value: budget + ' million dollars, ' + revenue + ' million dollars'
+      };
+    });
+    chart.render();
+  });
+</script>
+</body>
+</html>

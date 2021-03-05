@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height">
+    <title>基础饼图-内部文本</title>
+    <style>::-webkit-scrollbar{display:none;}html,body{overflow:hidden;height:100%;margin:0;}</style>
+</head>
+<body>
+<div id="mountNode"></div>
+<script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
+<script src="static/g2.min.js"></script>
+<script src="static/data-set.min.js"></script>
+<script src="static/jquery-3.2.1.min.js"></script>
+<script>
+  var chart = new G2.Chart({
+    container: 'mountNode',
+    forceFit: true,
+    height: window.innerHeight
+  });
+  chart.coord('theta');
+  chart.tooltip({
+    showTitle: false
+  });
+  chart.intervalStack().position('percent').color('lang').tooltip('lang*percent', function(lang, percent) {
+    percent = (percent * 100).toFixed(2) + '%';
+    return {
+      name: lang,
+      value: percent
+    };
+  }).style({
+    lineWidth: 1,
+    stroke: '#fff'
+  });
+  chart.render();
+
+  $.getJSON('static/language.json', d => {
+    const total = d.map(v => v.count).reduce((x, y) => x + y)
+    d = d.map(v => ({
+      lang: v.language,
+      percent: v.count / total
+    }))
+    chart.changeData(d);
+  })
+</script>
+</body>
+</html>
